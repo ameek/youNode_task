@@ -9,16 +9,16 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
     ports:
-      - "5433:5432"  # Map container port 5432 to host port 5432 (adjust if needed)
+      - "5434:5432"  # Map container port 5432 to host port 5432 (adjust if needed)
     volumes:
       - pgdata:/var/lib/postgresql/data  # Persist PostgreSQL data in named volume pgdata
 
-  purchase-history-service:
+  message-service:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3005:3005"  # Map container port 3000 to host port 3000
+      - "3007:3007"  # Map container port 3000 to host port 3000
     environment:
       - NODE_ENV=production  # Set Node environment to production
     volumes:
