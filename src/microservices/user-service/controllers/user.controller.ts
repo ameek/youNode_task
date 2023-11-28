@@ -39,7 +39,6 @@ export class UserController {
 
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<UserRespones> {
-    console.log(id);
     return await this.userService.getUserById(id);
   }
 
@@ -49,7 +48,6 @@ export class UserController {
     @Query('cursor') cursor?: string,
   ): Promise<UserList> {
     try {
-      console.log(limit, cursor);
       const users = await this.userService.getUsers(limit, cursor);
       return users;
     } catch (error) {
