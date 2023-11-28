@@ -4,15 +4,22 @@ import { AppService } from '../services/app.service';
 import { dataSourceOptions } from 'ormconfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_PIPE } from '@nestjs/core';
-
+import { PurchaseHistoryModule } from './PurchaseHistory.module';
+import { ProductModule } from './product.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions)],
+  imports: [
+    TypeOrmModule.forRoot(dataSourceOptions),
+    PurchaseHistoryModule,
+    ProductModule,
+  ],
   controllers: [AppController],
-  providers: [AppService,
+  providers: [
+    AppService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
-    }],
+    },
+  ],
 })
 export class AppModule {}
