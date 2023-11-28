@@ -7,6 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from 'dtos/user.dto';
 import { User } from 'entities/user.entity';
+import { retry } from 'rxjs';
 import { FindManyOptions, MoreThan, Repository } from 'typeorm';
 import { UserList, UserRespones } from 'types/userTypes';
 
@@ -38,6 +39,10 @@ export class UserService {
 
   async getUsers(limit: number, cursor?: string): Promise<UserList> {
     try {
+      const MAX_LIMIT = 100;
+      if (limit > MAX_LIMIT) {
+        limit = MAX_LIMIT;
+      }
       const queryOptions: FindManyOptions<User> = {
         take: limit,
         order: { id: 'ASC' },
@@ -51,13 +56,14 @@ export class UserService {
 
       const [users, count] =
         await this.userRepository.findAndCount(queryOptions);
-      console.log( count);
+      console.log(count);
       const hasNextPage = count > limit;
 
       return {
         users: users.slice(0, limit),
         hasNextPage,
-        lastCursor: users.length > 0 && hasNextPage ? users[users.length - 1].id : '',
+        lastCursor:
+          users.length > 0 && hasNextPage ? users[users.length - 1].id : '',
       };
     } catch (error) {
       throw new Error('Failed to fetch users: ' + error.message);
