@@ -56,6 +56,13 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
+#run generate migration
+npm run migration:generate ./migration/user
+
+# after migration run migratin run
+npm run migration:run
+
 ```
 
 ## Support
