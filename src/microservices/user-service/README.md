@@ -63,6 +63,9 @@ npm run migration:generate ./migration/user
 # after migration run migratin run
 npm run migration:run
 
+
+# faker install
+npm install typeorm-extension @faker-js/faker 
 ```
 
 ## Support
