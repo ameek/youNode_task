@@ -27,12 +27,7 @@ export class UserService {
       };
     } catch (error) {
       throw new NotFoundException('User not found');
-      // return {
-      //   failues: {
-      //     message: 'User not found',
-      //     reason: error.message,
-      //   },
-      // };
+    
     }
   }
 
@@ -57,7 +52,6 @@ export class UserService {
         await this.userRepository.findAndCount(queryOptions);
       const hasNextPage = count > limit;
 
-      console.log(users.slice(0, limit),limit);
       return {
         users: users.slice(0, limit),
         hasNextPage,
