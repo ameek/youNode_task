@@ -1,0 +1,153 @@
+@host = http://localhost:3010
+# @host = https://gifty-api.non-logic.com/api/v1
+
+@token = sample token
+###
+### ==============================
+### tcp call
+GET {{host}}/userList?limit=10
+content-type: application/json
+
+
+### tcp call
+GET {{host}}/
+content-type: application/json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### ==============================
+###         product route ends
+### ==============================
+
+
+
+### Login
+POST {{host}}/auth/social-login HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+app-role: user
+
+{
+    "provider": "google",
+    "token": {{ gtoken }}
+}
+
+### ==============================
+###           Auth
+### ==============================
+### Login
+POST {{host}}/auth/login HTTP/1.1
+content-type: application/json
+app-role: user
+
+{
+    "email": "jaman111@gmail.com",
+    # "email": "8801701701701",
+    "password": "password"
+}
+
+### Get Auth User
+GET {{host}}/auth/user-info
+content-type: application/json
+Authorization: Bearer {{token}}
+
+### Registration
+POST {{ host }}/auth/register
+content-type: application/json
+
+{
+    # "name": "Viserys Targaryen",
+    # "email": "viserys@mail.com",
+    "name": "Test User",
+    "email": "test.user11@gmail.com",
+    "phone":"01701701000",
+    "password": "password",
+    "password_confirmation": "password",
+    "refer_code": ""
+}
+
+
+### resend OTP
+POST {{ host }}/auth/resend-otp
+content-type: application/json
+app-role: user
+
+{
+    "email": "test@mail.com",
+    "forget": true
+}
+
+### verify OTP
+POST {{ host }}/auth/verify HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "otp": 5592
+}
+
+### Forget Password OTP
+POST {{host}}/auth/forget-password HTTP/1.1
+content-type: application/json
+app-role: user
+
+{
+    "email": "genie.kaisar@gmail.com",
+    "forget": true
+}
+
+### Forget password OTP verify
+POST {{ host }}/auth/forget-password-otp-verify HTTP/1.1
+content-type: application/json
+
+{
+    "email": "genie.kaisar@gmail.com",
+    "otp": 3980,
+    "forget": true
+}
+
+### reset password
+POST {{ host }}/auth/reset-password HTTP/1.1
+content-type: application/json
+
+{
+    "token": 88424490,
+    "email": "genie.kaisar@gmail.com",
+    "password": "password1",
+    "password_confirmation": "password1"
+}
+
+### Logout
+POST {{host}}/auth/logout HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+accept: application/json
+
+### Change Password
+POST {{host}}/user/profile/change-password HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+accept: application/json
+
+{
+    "old_password" : "password",
+    "new_password" : "password1",
+    "confirm_password" : "password1"
+}
+
+
+### Test
+GET {{ host }}/auth/abc/test HTTP/1.1
+content-type: application/json
+accept: application/json
