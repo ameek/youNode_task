@@ -8,6 +8,10 @@
 GET {{host}}/userList?limit=10
 content-type: application/json
 
+### tcp call
+GET {{host}}/userList?limit=95&cursor=175825c3-b0af-48ef-9cab-a2f528c54e3b
+content-type: application/json
+
 
 ### tcp call
 GET {{host}}/
