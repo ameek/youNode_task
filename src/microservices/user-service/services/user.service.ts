@@ -48,7 +48,7 @@ export class UserService {
         order: { id: 'ASC' },
       };
 
-      if (cursor) {
+      if (cursor && cursor !== '') {
         queryOptions.where = {
           id: MoreThan(cursor),
         };
@@ -56,9 +56,9 @@ export class UserService {
 
       const [users, count] =
         await this.userRepository.findAndCount(queryOptions);
-      console.log(count);
       const hasNextPage = count > limit;
 
+      console.log(users.slice(0, limit),limit);
       return {
         users: users.slice(0, limit),
         hasNextPage,

@@ -13,6 +13,7 @@ import {
   ParseIntPipe,
   NotFoundException,
 } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 import {
   CreateUserDto,
   LoginDto,
@@ -39,16 +40,15 @@ export class UserController {
 
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<UserRespones> {
+    console.log('user service all', id);
     return await this.userService.getUserById(id);
   }
 
-  @Get()
-  async getUsers(
-    @Query('limit', ParseIntPipe) limit: number = 10,
-    @Query('cursor') cursor?: string,
-  ): Promise<UserList> {
+  // @Get()
+  @MessagePattern('users')
+  async getUsers(data): Promise<UserList> {
     try {
-      const users = await this.userService.getUsers(limit, cursor);
+      const users = await this.userService.getUsers(data.limit, data?.cursor);
       return users;
     } catch (error) {
       throw new NotFoundException('Failed to fetch users');
