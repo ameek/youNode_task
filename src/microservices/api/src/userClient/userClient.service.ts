@@ -6,7 +6,7 @@ export class UserClientService implements OnModuleInit {
   constructor(@Inject('USER_SERVICE') private client: ClientProxy) {}
 
   async onModuleInit() {
-    console.log('onModuleInit');
+    console.log('onModuleInit for user client service');
     await this.client.connect();
   }
 
@@ -15,5 +15,10 @@ export class UserClientService implements OnModuleInit {
     console.log('getUserById on user client service', "limit",limit);
 
     return this.client.send('users', { limit, cursor }).toPromise();
+  }
+
+  // auth login on user client
+  login(loginDto: any): Promise<any> {
+    return this.client.send('login', loginDto).toPromise();
   }
 }

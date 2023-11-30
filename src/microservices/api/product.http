@@ -21,8 +21,14 @@ content-type: application/json
 GET {{host}}/
 content-type: application/json
 
+### tcp call login
+POST {{host}}/login 
+content-type: application/json
 
-
+{
+    "email": "jaman111@gmail.com",
+    "password": "password"
+}
 
 
 

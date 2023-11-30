@@ -33,10 +33,10 @@ export class UserController {
     return this.userService.registerUser(createUserDto);
   }
 
-  //   @Post('login')
-  //   async loginUser(@Body(new ValidationPipe()) loginDto: LoginDto) {
-  //     return this.userService.loginUser(loginDto);
-  //   }
+    // @Post('login')
+    // async loginUser(@Body(new ValidationPipe()) loginDto: LoginDto) {
+    //   return this.userService.loginUser(loginDto);
+    // }
 
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<UserRespones> {

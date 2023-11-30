@@ -6,7 +6,7 @@ export class PurchaseHistoryClientService {
     constructor(@Inject('PURCHASE_HISTORY_SERVICE') private purchaseHistoryServiceClient: ClientProxy) {}
 
     async onModuleInit() {
-        console.log("onModuleInit");
+        console.log("onModuleInit client for purchaseHistoryClient");
         await this.purchaseHistoryServiceClient.connect();
     }
   // Example method to send a message to the purchaseHistoryService
