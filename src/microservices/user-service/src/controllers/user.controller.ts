@@ -12,8 +12,11 @@ import {
   Patch,
   ParseIntPipe,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import {
   CreateUserDto,
   LoginDto,
@@ -33,18 +36,13 @@ export class UserController {
     return this.userService.registerUser(createUserDto);
   }
 
-    // @Post('login')
-    // async loginUser(@Body(new ValidationPipe()) loginDto: LoginDto) {
-    //   return this.userService.loginUser(loginDto);
-    // }
-
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<UserRespones> {
     console.log('user service all', id);
     return await this.userService.getUserById(id);
   }
 
-  // @Get()
+  // @UseGuards(JwtAuthGuard)
   @MessagePattern('users')
   async getUsers(data): Promise<UserList> {
     try {

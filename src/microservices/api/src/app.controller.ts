@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { get } from 'http';
 import { UserClientService } from './userClient/userClient.service';
@@ -18,9 +18,11 @@ export class AppController {
   }
 
   @Post('/login')
-  async login(@Param('email') email: string, @Param('password') password: string) {
-    console.log('user client',email,password);
-    const login = await this.userClientService.login({ email, password });
+  async login(@Body() loginDto:{email: string,password: string}) {
+    console.log('user client',loginDto.email,loginDto.password);
+    const login = await this.userClientService.login(loginDto);
+    //auth generate token
+    return login;
   }
 
   @Get('/userList')
