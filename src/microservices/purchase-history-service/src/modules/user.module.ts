@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { ClientsModule, Transport } from "@nestjs/microservices";
-import { UserClientService } from "services/user.service";
+import { UserClientService } from "src/services/user.service";
 
 @Module({
     imports: [

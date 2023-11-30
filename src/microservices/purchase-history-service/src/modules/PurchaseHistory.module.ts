@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { PurchaseHistory } from "entities/PurchaseHistory.entity";
+import { PurchaseHistory } from "src/entities/PurchaseHistory.entity";
 
 @Module({
     imports: [
