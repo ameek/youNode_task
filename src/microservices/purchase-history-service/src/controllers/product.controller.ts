@@ -15,11 +15,11 @@ import {
   CreateProductDto,
   UpdateProductDto,
   GetProductDto,
-} from 'dtos/product.dto';
-import { Product } from 'entities/product.entity';
-import { ProductService } from 'services/product.service';
-import { UserClientService } from 'services/user.service';
-import { ProductList, ProductResponse } from 'types/productTypes';
+} from 'src/dtos/product.dto';
+import { Product } from 'src/entities/product.entity';
+import { ProductService } from 'src/services/product.service';
+import { UserClientService } from 'src/services/user.service';
+import { ProductList, ProductResponse } from 'src/types/productTypes';
 
 @Controller('products')
 export class ProductController {
