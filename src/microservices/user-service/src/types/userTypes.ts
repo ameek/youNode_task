@@ -1,8 +1,8 @@
-import { User } from 'entities/user.entity';
+import { User } from 'src/entities/user.entity';
 
 export interface UserRespones {
   message?: string;
-  sucssess?: {
+  success?: {
     user: User;
   };
   failues?: {

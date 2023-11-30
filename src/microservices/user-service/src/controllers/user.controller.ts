@@ -19,10 +19,10 @@ import {
   LoginDto,
   UpdateProfileDto,
   UpdateUserDto,
-} from 'dtos/user.dto';
-import { User } from 'entities/user.entity';
-import { UserService } from 'services/user.service';
-import { UserList, UserRespones } from 'types/userTypes';
+} from 'src/dtos/user.dto';
+import { User } from 'src/entities/user.entity';
+import { UserService } from 'src/services/user.service';
+import { UserList, UserRespones } from 'src/types/userTypes';
 
 @Controller('users')
 export class UserController {

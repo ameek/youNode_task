@@ -11,7 +11,7 @@ import { PurchaseHistoryClientModule } from './purchase-history-client.module';
   imports: [
     TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
-    // PurchaseHistoryClientModule, // todo will be added later
+    PurchaseHistoryClientModule, // todo will be added later
   ],
   controllers: [AppController],
   providers: [
