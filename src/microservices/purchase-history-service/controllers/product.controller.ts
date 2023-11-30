@@ -10,6 +10,7 @@ import {
   NotFoundException,
   Body,
 } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 import {
   CreateProductDto,
   UpdateProductDto,
@@ -52,7 +53,10 @@ export class ProductController {
   }
 
   @Get(':id')
-  async getProduct(@Param('id') productId: string): Promise<ProductResponse> {
+  @MessagePattern('GetProduct')
+
+  async getProduct( productId: string): Promise<ProductResponse> {
+    console.log('GetProduct', productId);
     const product = await this.productService.getProduct(productId);
     if (!product) {
       throw new NotFoundException(`Product with ID ${productId} not found`);

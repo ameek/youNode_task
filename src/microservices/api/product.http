@@ -8,6 +8,14 @@
 GET {{host}}/userList?limit=10
 content-type: application/json
 
+### tcp call user
+GET {{host}}/userList?limit=95&cursor=175825c3-b0af-48ef-9cab-a2f528c54e3b
+content-type: application/json
+
+### tcp call product ba9dd92d-4e1c-4f65-bcd8-fd4f97f23ff1
+GET {{host}}/getproduct?productid=ba9dd92d-4e1c-4f65-bcd8-fd4f97f23ff1
+content-type: application/json
+
 
 ### tcp call
 GET {{host}}/
