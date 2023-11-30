@@ -1,47 +1,66 @@
 version: '3.8'
 
 services:
+  api-gateway:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - rabbitmq
+      - user-service
+      - purchase-history-service
+      - message-service
+    command: [ "npm", "run", "start" ]
+
   user-service:
     build:
       context: src/microservices/user-service
       dockerfile: Dockerfile
     ports:
-      - "3001:3001"  # Map container port 3001 to host port 3001
+      - "3001:3001" 
     environment:
-      - NODE_ENV=production  # Set Node environment to production
+      - NODE_ENV=production 
     volumes:
-      - .:/app  # Mount local directory to /app in the container
+      - .:/app 
     depends_on:
-      - postgres  # Ensure PostgreSQL service is started first
-    command: ["npm", "run", "start"]
+      - postgres 
+    command: [ "npm", "run", "start" ]
 
   purchase-history-service:
     build:
       context: src/microservices/purchase-history-service
       dockerfile: Dockerfile
     ports:
-      - "3005:3005"  # Map container port 3005 to host port 3005
+      - "3005:3005" 
     environment:
-      - NODE_ENV=production  # Set Node environment to production
+      - NODE_ENV=production 
     volumes:
-      - .:/app  # Mount local directory to /app in the container
+      - .:/app # Mount local directory to /app in the container
     depends_on:
-      - postgres  # Ensure PostgreSQL service is started first
-    command: ["npm", "run", "start"]
+      - postgres # Ensure PostgreSQL service is started first
+    command: [ "npm", "run", "start" ]
 
   message-service:
     build:
       context: src/microservices/message-service
       dockerfile: Dockerfile
     ports:
-      - "3007:3007"  # Map container port 3000 to host port 3000
+      - "3007:3007" # Map container port 3000 to host port 3000
     environment:
-      - NODE_ENV=production  # Set Node environment to production
+      - NODE_ENV=production # Set Node environment to production
     volumes:
-      - .:/app  # Mount local directory to /app in the container
+      - .:/app # Mount local directory to /app in the container
     depends_on:
-      - postgres  # Ensure PostgreSQL service is started first
-    command: ["npm", "run", "start"]
+      - postgres # Ensure PostgreSQL service is started first
+      - rabbitmq
+    command: [ "npm", "run", "start" ]
 
   postgres:
     image: postgres:latest
@@ -51,8 +70,20 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
     ports:
-      - "5432:5432"  # Map container port 5432 to host port 5432 (adjust if needed)
+      - "5432:5432" 
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Persist PostgreSQL data in named volume pgdata
+      - pgdata:/var/lib/postgresql/data # Persist PostgreSQL data in named volume pgdata
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    env_file:
+      - .env
 volumes:
-  pgdata:  # Define the volume for PostgreSQL data persistence
+  pgdata: # Define the volume for PostgreSQL data persistence
