@@ -56,5 +56,15 @@ export class UpdateProfileDto {
   @IsString()
   age?: number;
 
-  // Add other profile-related fields as needed
+  @IsOptional()
+  @IsString()
+  username?: string;
+
+  @IsOptional()
+  @IsEmail()
+  email?: string;
+
+  @IsOptional()
+  @IsPhoneNumber(null)
+  contact_number?: string;
 }
