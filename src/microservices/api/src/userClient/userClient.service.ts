@@ -19,6 +19,7 @@ export class UserClientService implements OnModuleInit {
 
   // auth login on user client
   login(loginDto: any): Promise<any> {
+    console.log('login on user client service', loginDto);
     return this.client.send('login', loginDto).toPromise();
   }
 }

@@ -57,7 +57,7 @@ export class UserService {
         await this.userRepository.findAndCount(queryOptions);
       const hasNextPage = count > limit;
 
-      console.log(users.slice(0, limit),limit);
+      console.log(users.slice(0, limit), limit);
       return {
         users: users.slice(0, limit),
         hasNextPage,
@@ -91,6 +91,17 @@ export class UserService {
       };
     } catch (error) {
       throw new BadRequestException('User registration failed', error.message);
+    }
+  }
+
+  async getUserEmailPass(email, password): Promise<User> {
+    try {
+      const user = await this.userRepository.findOne({
+        where: { email, password },
+      });
+      return user;
+    } catch (error) {
+      throw new NotFoundException('User not found');
     }
   }
 

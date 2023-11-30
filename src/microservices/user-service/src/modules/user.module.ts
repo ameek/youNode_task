@@ -13,5 +13,6 @@
     ],
     controllers: [UserController], // Register the UserController
     providers: [UserService], // Register the UserService
+    exports: [UserService], // Export the UserService
   })
   export class UserModule {}
