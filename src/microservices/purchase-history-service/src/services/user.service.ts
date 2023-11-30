@@ -11,7 +11,7 @@ export class UserClientService implements OnModuleInit {
   }
 
   // Add a method to send a message to the USER_SERVICE
-  getUserById(limit: number, cursor?: string): Promise<any> {
+  getUsers(limit: number, cursor?: string): Promise<any> {
     console.log('getUserById on user client service', "limit",limit);
 
     return this.client.send('users', { limit, cursor }).toPromise();

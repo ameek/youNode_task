@@ -35,7 +35,7 @@ export class ProductController {
   ) {
     try {
       console.log('user client');
-      const userList = await this.userClientService.getUserById(limit, cursor);
+      const userList = await this.userClientService.getUsers(limit, cursor);
       // console.log('users', userList);
       return { userList }
     } catch (error) {

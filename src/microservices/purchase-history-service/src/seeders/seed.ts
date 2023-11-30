@@ -3,7 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { runSeeders, SeederOptions } from 'typeorm-extension';
 import { ProductsFactory } from './product.factory';
 import { Product } from '../entities/product.entity';
-import { PurchaseHistory } from '../entities/PurchaseHistory.entity';
+import { PurchaseHistory } from '../entities/purchaseHistory.entity';
 
 import MainSeeder from './main.seeder';
 

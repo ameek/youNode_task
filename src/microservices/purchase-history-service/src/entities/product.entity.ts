@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { PurchaseHistory } from './PurchaseHistory.entity';
+import { PurchaseHistory } from './purchaseHistory.entity';
 
 @Entity('products')
 export class Product {
