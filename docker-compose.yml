@@ -3,10 +3,10 @@ version: '3.8'
 services:
   api-gateway:
     build: 
-      context: .
+      context:  src/microservices/api
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3010:3010"
     environment:
       - NODE_ENV=production
     volumes:
