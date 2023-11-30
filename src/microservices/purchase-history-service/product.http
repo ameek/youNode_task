@@ -9,16 +9,16 @@
 ### ==============================
 
 ### Get a product
-GET {{host}}/products/1371629e-f7de-460b-8dee-0d9e79bf3a46
+GET {{host}}/products/003e1782-78dd-476f-b70e-50c2864b614d
 content-type: application/json
 
 ### get product list
-GET {{host}}/products?limit=10
+GET {{host}}/products?limit=3
 content-type: application/json
 
 
 ### get product list
-GET {{host}}/products?limit=50
+GET {{host}}/products?limit=a
 content-type: application/json
 
 
@@ -26,8 +26,21 @@ content-type: application/json
 GET {{host}}/products?limit=10&cursor=aac20fdd-66e2-4ca6-98db-f04426f860bc
 content-type: application/json
 
+### create a product
+POST {{host}}/products
+content-type: application/json
+app-role: user
+{
+    "name": "test product",
+    "description": "test product description",
+    "price": 100,
+    "quantity": 100,
+    "category": "test category"
+}
 
-
+### tcp call
+GET {{host}}/products/userList?limit=10
+content-type: application/json
 
 
 

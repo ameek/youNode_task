@@ -6,12 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_PIPE } from '@nestjs/core';
 import { PurchaseHistoryModule } from './PurchaseHistory.module';
 import { ProductModule } from './product.module';
+import { UserClientModule } from './user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dataSourceOptions),
     PurchaseHistoryModule,
     ProductModule,
+    UserClientModule
   ],
   controllers: [AppController],
   providers: [
@@ -20,6 +22,7 @@ import { ProductModule } from './product.module';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
+    
   ],
 })
 export class AppModule {}

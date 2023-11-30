@@ -17,11 +17,30 @@ import {
 } from 'dtos/product.dto';
 import { Product } from 'entities/product.entity';
 import { ProductService } from 'services/product.service';
+import { UserClientService } from 'services/user.service';
 import { ProductList, ProductResponse } from 'types/productTypes';
 
 @Controller('products')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private readonly userClientService: UserClientService,
+  ) {}
+
+  @Get('/userList')
+  async getUserData(
+    @Query('limit') limit: number,
+    @Query('cursor') cursor?: string,
+  ) {
+    try {
+      console.log('user client');
+      const userList = await this.userClientService.getUserById(limit, cursor);
+      // console.log('users', userList);
+      return { userList }
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
 
   @Get()
   async getProducts(
@@ -68,4 +87,19 @@ export class ProductController {
   async deleteProduct(@Param('id') productId: string): Promise<void> {
     await this.productService.deleteProduct(productId);
   }
+
+  /**
+   * populate purchase history table
+   * fetch user list
+   * fetch product list
+   * for each user create a history object containing user and product info
+   * 
+  async populatePurchaseHistory(): Promise<void> {
+    const products = await this.productService.getProducts();
+    const users = await this.userClientService.getUserById();
+    // make chunks for users
+    const usersChunks = [];
+
+  }
+   */
 }
