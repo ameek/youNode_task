@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-import { AppModule } from 'modules/app.module';
+import { AppModule } from 'src/modules/app.module';
 import "reflect-metadata"
 
 // createConnection method will automatically read connection options

@@ -5,11 +5,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'dtos/user.dto';
-import { User } from 'entities/user.entity';
-import { retry } from 'rxjs';
+import { CreateUserDto } from 'src/dtos/user.dto';
 import { FindManyOptions, MoreThan, Repository } from 'typeorm';
-import { UserList, UserRespones } from 'types/userTypes';
+import { UserList, UserRespones } from 'src/types/userTypes';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -22,7 +21,7 @@ export class UserService {
     try {
       const user = await this.userRepository.findOneOrFail({ where: { id } });
       return {
-        sucssess: {
+        success: {
           user,
         },
       };
@@ -86,7 +85,7 @@ export class UserService {
       const savedUser = await this.userRepository.save(newUser);
 
       return {
-        sucssess: {
+        success: {
           user: savedUser,
         },
       };
