@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { get } from 'http';
 import { UserClientService } from './userClient/userClient.service';
@@ -15,6 +15,12 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Post('/login')
+  async login(@Param('email') email: string, @Param('password') password: string) {
+    console.log('user client',email,password);
+    const login = await this.userClientService.login({ email, password });
   }
 
   @Get('/userList')
