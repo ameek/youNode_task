@@ -23,9 +23,6 @@ export class PurchaseHistoryService {
 
     while (true) {
       const userList = await this.userClientService.getUsers(limit, cursor);
-      if (userList.hasNextPage === false) break;
-      cursor = userList.lastCursor;
-
       for (const user of userList.users) {
         for (const product of products.products) {
           const purchaseHistory = new PurchaseHistory();
@@ -40,6 +37,8 @@ export class PurchaseHistoryService {
           userPurchaseHistory.push(purchaseHistory);
         }
       }
+      if (userList.hasNextPage === false) break;
+      cursor = userList.lastCursor;
     }
     return userPurchaseHistory;
   }
@@ -74,15 +73,16 @@ export class PurchaseHistoryService {
       const queryOptions: FindManyOptions<PurchaseHistory> = {
         take: limit,
         order: { id: 'ASC' },
-        where: cursor ? { userId: userId, id: MoreThan(cursor) } : { userId: userId },
+        where: cursor
+          ? { userId: userId, id: MoreThan(cursor) }
+          : { userId: userId },
       };
-  
-      const [purchaseHistory, count] = await this.purchaseHistoryRepository.findAndCount(
-        queryOptions,
-      );
-  
+
+      const [purchaseHistory, count] =
+        await this.purchaseHistoryRepository.findAndCount(queryOptions);
+
       const hasNextPage = count > limit;
-  
+
       return {
         purchaseHistory: purchaseHistory.slice(0, limit),
         hasNextPage,
