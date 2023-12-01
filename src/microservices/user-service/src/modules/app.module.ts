@@ -6,14 +6,12 @@ import { dataSourceOptions } from 'ormconfig';
 import { UserModule } from './user.module';
 import { APP_PIPE } from '@nestjs/core';
 import { PurchaseHistoryClientModule } from './purchase-history-client.module';
-import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
-    PurchaseHistoryClientModule, 
-    AuthModule
+    PurchaseHistoryClientModule,
   ],
   controllers: [AppController],
   providers: [

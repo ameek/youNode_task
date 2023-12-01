@@ -15,15 +15,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { AuthGuard } from '@nestjs/passport';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import {
-  CreateUserDto,
-  LoginDto,
-  UpdateProfileDto,
-  UpdateUserDto,
+  CreateUserDto
 } from 'src/dtos/user.dto';
-import { User } from 'src/entities/user.entity';
 import { UserService } from 'src/services/user.service';
 import { UserList, UserRespones } from 'src/types/userTypes';
 
@@ -51,6 +45,11 @@ export class UserController {
     } catch (error) {
       throw new NotFoundException('Failed to fetch users');
     }
+  }
+
+  @MessagePattern('getUserEmailPass')
+  async getUserEmailPass(data): Promise<any> {
+    return this.userService.getUserEmailPass(data.email, data.password);
   }
 
   @MessagePattern('deleteUser')

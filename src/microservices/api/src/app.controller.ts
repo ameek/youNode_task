@@ -1,8 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { AppService } from './app.service';
-import { get } from 'http';
 import { UserClientService } from './userClient/userClient.service';
 import { PurchaseHistoryClientService } from './purchase-history-client/purchase-history-client.service';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth/auth.service';
+import { LocalStrategy } from './auth/local.strategy';
 
 @Controller()
 export class AppController {
@@ -10,6 +22,8 @@ export class AppController {
     private readonly appService: AppService,
     private readonly userClientService: UserClientService,
     private readonly purchaseHistoryClientService: PurchaseHistoryClientService,
+    private readonly localStrategy: LocalStrategy,
+    private readonly authService: AuthService,
   ) {}
 
   @Get()
@@ -30,17 +44,24 @@ export class AppController {
     @Query('cursor') cursor?: string,
   ): Promise<void> {
     console.log('user client', userId, limit, cursor);
-    return await this.purchaseHistoryClientService.getUserPurchaseHistory(userId,limit, cursor);
+    return await this.purchaseHistoryClientService.getUserPurchaseHistory(
+      userId,
+      limit,
+      cursor,
+    );
   }
 
+  // @UseGuards(AuthGuard('local'))
   @Post('/login')
-  async login(@Body() loginDto:{email: string,password: string}) {
-    console.log('user client',loginDto.email,loginDto.password);
-    const login = await this.userClientService.login(loginDto);
-    //auth generate token
-    return login;
+  async login(@Body() loginDto: { email: string; password: string }) {
+    const user = await this.authService.validateUser(loginDto.email, loginDto.password);
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    return await this.authService.login(user);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('/userList')
   async getUserData(
     @Query('limit') limit: number,
@@ -56,22 +77,22 @@ export class AppController {
   }
 
   @Delete('/deleteUser')
-  async deleteUser(@Query('id') id: string):Promise<string> {
+  async deleteUser(@Query('id') id: string): Promise<string> {
     try {
-      console.log('user client',id);
+      console.log('user client', id);
       const user = await this.appService.deleteUser(id);
-      return user ;
+      return user;
     } catch (error) {
       return error.message || error;
     }
   }
 
   @Get('/userById')
-  async getUser(@Query('id') id: string):Promise<string> {
+  async getUser(@Query('id') id: string): Promise<string> {
     try {
-      console.log('user client',id);
+      console.log('user client', id);
       const user = await this.userClientService.getUser(id);
-      return user ;
+      return user;
     } catch (error) {
       return error.message || error;
     }
