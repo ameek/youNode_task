@@ -133,4 +133,4 @@ the api.http has the publicly exposed api endpoints. After running all services 
   * for all cases Dtos are not implemnted
 
 ## Conclusion 
-I have tried to meet all the requirement for each microservices that are must be need to be done. I and i have left out the redundent tasks  for this time bounded project. I wish could complete the project as a finish project. 
+I have tried to meet all the requirement for each microservices that are must be need to be done. I and i have left out the redundent tasks  for this time bounded project.
