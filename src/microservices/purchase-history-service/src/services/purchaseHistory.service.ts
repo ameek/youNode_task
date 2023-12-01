@@ -18,7 +18,7 @@ export class PurchaseHistoryService {
     let cursor = '';
     let userPurchaseHistory: PurchaseHistory[] = [];
 
-    //fecth 10 producst
+    //fecth 2 producst
     const products = await this.productService.getProducts(2, '');
 
     while (true) {
@@ -103,4 +103,22 @@ export class PurchaseHistoryService {
     }
     return userPurchaseChunks;
   }
+
+
+  async deleteUserPurchaseHistory(userId: string) {
+    try {
+      const allHistoryRecords = await this.purchaseHistoryRepository.find({ where: { userId } });
+  
+      // Delete the retrieved purchase history records
+      if (allHistoryRecords.length) {
+        await this.purchaseHistoryRepository.remove(allHistoryRecords);
+        return allHistoryRecords.length; // Return the number of deleted records
+      } else {
+        return 0; // No records were found to delete
+      }
+    } catch (error) {
+      return "error or history delete"; // to get the error
+    }
+  }
+  
 }

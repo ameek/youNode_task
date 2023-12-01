@@ -22,10 +22,16 @@ export class PurchaseHistoryController {
 
   // fetch purchase history by user id by cursor based pagination
   @MessagePattern('getUserPurchaseHistory')
-  async getUserPurchaseHistory(
-    data: { userId: string; limit: number; cursor?: string },
-  ){
-    return await this.purchaseHistoryService.getUserPurchaseHistory(data.userId, data.limit, data.cursor);
+  async getUserPurchaseHistory(data: {
+    userId: string;
+    limit: number;
+    cursor?: string;
+  }) {
+    return await this.purchaseHistoryService.getUserPurchaseHistory(
+      data.userId,
+      data.limit,
+      data.cursor,
+    );
   }
 
   /**
@@ -39,5 +45,11 @@ export class PurchaseHistoryController {
   @MessagePattern('populatePurchaseHistory')
   async populatePurchaseHistory(): Promise<void> {
     return await this.purchaseHistoryService.populatePurchaseHistory();
+  }
+
+  // fetch purchase history by user id by cursor based pagination
+  @MessagePattern('deleteUserPurchaseHistory')
+  async deleteUserPurchaseHistory(userId: string) {
+    return await this.purchaseHistoryService.deleteUserPurchaseHistory(userId);
   }
 }

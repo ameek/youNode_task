@@ -9,7 +9,7 @@
   @Module({
     imports: [
       TypeOrmModule.forFeature([User]), // Import the User entity into the module
-
+      // PurchaseHistoryClientModule
     ],
     controllers: [UserController], // Register the UserController
     providers: [UserService], // Register the UserService

@@ -6,7 +6,7 @@ export class UserClientService implements OnModuleInit {
   constructor(@Inject('USER_SERVICE') private client: ClientProxy) {}
 
   async onModuleInit() {
-    console.log('onModuleInit');
+    console.log('onModuleInit for user client service');
     await this.client.connect();
   }
 

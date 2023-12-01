@@ -38,4 +38,10 @@ export class PurchaseHistoryClientService {
       .send('getUserPurchaseHistory', { userId, limit, cursor })
       .toPromise();
   }
+
+  async deleteUserPurchaseHistory(userId: string): Promise<any> {
+    return await this.purchaseHistoryServiceClient
+      .send('deleteUserPurchaseHistory', userId)
+      .toPromise();
+  }  
 }

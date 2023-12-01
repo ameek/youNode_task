@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { get } from 'http';
 import { UserClientService } from './userClient/userClient.service';
@@ -48,14 +48,34 @@ export class AppController {
   ) {
     try {
       console.log('user client');
-      const userList = await this.userClientService.getUserById(limit, cursor);
-      // console.log('users', userList);
+      const userList = await this.userClientService.getUserList(limit, cursor);
       return { userList };
     } catch (error) {
       return { error: error.message };
     }
   }
 
+  @Delete('/deleteUser')
+  async deleteUser(@Query('id') id: string):Promise<string> {
+    try {
+      console.log('user client',id);
+      const user = await this.appService.deleteUser(id);
+      return user ;
+    } catch (error) {
+      return error.message || error;
+    }
+  }
+
+  @Get('/userById')
+  async getUser(@Query('id') id: string):Promise<string> {
+    try {
+      console.log('user client',id);
+      const user = await this.userClientService.getUser(id);
+      return user ;
+    } catch (error) {
+      return error.message || error;
+    }
+  }
   @Get('/getproduct')
   async getProduct(@Query('productid') productid?: string) {
     try {

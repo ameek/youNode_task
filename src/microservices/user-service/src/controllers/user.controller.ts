@@ -36,8 +36,8 @@ export class UserController {
     return this.userService.registerUser(createUserDto);
   }
 
-  @Get(':id')
-  async getUserById(@Param('id') id: string): Promise<UserRespones> {
+  @MessagePattern('userById')
+  async getUserById(id: string): Promise<UserRespones> {
     console.log('user service all', id);
     return await this.userService.getUserById(id);
   }
@@ -53,17 +53,17 @@ export class UserController {
     }
   }
 
+  @MessagePattern('deleteUser')
+  async deleteUser(data): Promise<{ message: string }> {
+    return this.userService.deleteUser(data.id);
+  }
+
   //   @Put(':id')
   //   async updateUser(
   //     @Param('id') id: string,
   //     @Body(new ValidationPipe()) updateUserDto: UpdateUserDto,
   //   ): Promise<User> {
   //     return this.userService.updateUser(id, updateUserDto);
-  //   }
-
-  //   @Delete(':id')
-  //   async deleteUser(@Param('id') id: string): Promise<{ message: string }> {
-  //     return this.userService.deleteUser(id);
   //   }
 
   //   @Get()

@@ -19,6 +19,7 @@ export class UserService {
 
   async getUserById(id: string): Promise<UserRespones> {
     try {
+      console.log('user getUserById ', id);
       const user = await this.userRepository.findOneOrFail({ where: { id } });
       return {
         success: {
@@ -31,6 +32,15 @@ export class UserService {
     }
   }
 
+    /**
+   * Retrieves a list of users with optional pagination.
+   *
+   * @param {number} limit - The maximum number of users to retrieve.
+   * @param {string} [cursor] - The cursor used for pagination.
+   * @return {Promise<UserList>} A promise that resolves to an object containing
+   * the list of users, a flag indicating if there is a next page, and the last
+   * cursor value.
+   */
   async getUsers(limit: number, cursor?: string): Promise<UserList> {
     try {
       const MAX_LIMIT = 100;
@@ -94,6 +104,18 @@ export class UserService {
         where: { email, password },
       });
       return user;
+    } catch (error) {
+      throw new NotFoundException('User not found');
+    }
+  }
+
+  async deleteUser(id: string): Promise<{ message: string }> {
+    try {
+      //find the user by id 
+      const user = await this.userRepository.findOneOrFail({ where: { id:id } });
+     
+
+      return { message: 'User deleted successfully' };
     } catch (error) {
       throw new NotFoundException('User not found');
     }

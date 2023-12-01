@@ -6,20 +6,9 @@ import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservice
 @Injectable()
 export class PurchaseHistoryClientService {
     constructor(@Inject('PURCHASE_HISTORY_SERVICE') private purchaseHistoryServiceClient: ClientProxy) {}
-//   private readonly purchaseHistoryServiceClient: ClientProxy;
-
-//   constructor() {
-//     this.purchaseHistoryServiceClient = ClientProxyFactory.create({
-//       transport: Transport.TCP,
-//       options: {
-//         host: 'localhost',
-//         port: 3005,
-//       },
-//     });
-//   }
 
     async onModuleInit() {
-        console.log("onModuleInit");
+        console.log("onModuleInit for purchaseHistoryService");
         await this.purchaseHistoryServiceClient.connect();
     }
   // Example method to send a message to the purchaseHistoryService
