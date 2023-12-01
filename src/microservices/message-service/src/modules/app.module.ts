@@ -4,9 +4,11 @@ import { AppService } from '../services/app.service';
 import { BatchModule } from 'src/batch/batch.module';
 import { RabbitMQModule } from 'src/rabbitMQ/rabbitMQ.module';
 import { RabbitMQService } from 'src/rabbitMQ/rabbitMQ.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [RabbitMQModule, BatchModule],
+  imports: [RabbitMQModule, BatchModule,ScheduleModule.forRoot(),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

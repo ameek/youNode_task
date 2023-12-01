@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from '../services/app.service';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Controller()
 export class AppController {
@@ -8,5 +9,11 @@ export class AppController {
   @Get()
   getHello() {
     // return this.appService.getHello();
+  }
+
+  @MessagePattern('consume')
+  async consumeMessages() {
+    console.log('consumeMessages');
+    const msg = this.appService.consumeMessages();
   }
 }
