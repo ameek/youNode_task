@@ -1,0 +1,56 @@
+@host = http://localhost:3010
+# @host = https://gifty-api.non-logic.com/api/v1
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNhcm1lbjY1IiwiaWF0IjoxNzAxNDE5MTkzLCJleHAiOjE3MDE0MjI3OTN9.tFgsUqSQpS9HqOtZXHX_Bx8TSwyTnVwHamQD-Wc8-Eo
+###
+
+### hello world call
+GET {{host}}/
+content-type: application/json
+
+### ==============================  user service =================== ###
+
+###userById
+GET {{host}}/userById?id=620225ab-d63c-401a-90ec-bc45fc968588
+content-type: application/json
+
+###delete user along with purchase history of the user
+DELETE {{host}}/deleteUser?id=620225ab-d63c-401a-90ec-bc45fc968588
+content-type: application/json
+
+
+
+
+### tcp call product ba9dd92d-4e1c-4f65-bcd8-fd4f97f23ff1
+GET {{host}}/getproduct?productid=ba9dd92d-4e1c-4f65-bcd8-fd4f97f23ff1
+content-type: application/json
+
+###
+GET {{host}}/getUserPurchaseHistory?userId=531f172a-b107-404f-9b3c-2ef0da658f99&limit=2
+content-type: application/json
+
+###populatePurchaseHistory
+GET {{host}}/populatePurchaseHistory
+content-type: application/json
+
+
+
+
+### tcp call login
+POST {{host}}/login 
+content-type: application/json
+
+{
+  "email": "Darron63@gmail.com",
+  "password": "6JSa42zBFAbjNap"
+}
+
+### tcp call
+GET {{host}}/userList?limit=10
+content-type: application/json
+Authorization: Bearer {{token}}
+
+### tcp call user
+GET {{host}}/userList?limit=30&cursor=175825c3-b0af-48ef-9cab-a2f528c54e3b
+content-type: application/json
+
